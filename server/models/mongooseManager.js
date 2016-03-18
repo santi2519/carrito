@@ -1,34 +1,33 @@
-module.exports = function(app){
+   
 
+    
+    //Obtiene la coleccion 'producto' de la base de datos
+    var modelProducto = require('../models/Producto');
 
-   var producto = require('./models/Producto');
+    module.exports.findAllProducts = function(req,res){
 
-   findAllProducts = function(req,res){
-
-   	     producto.find(function(err,products){
+         modelProducto.find(function(err,productos){
              
               if(err)
-              	console.log('ERROR');
+                console.log('ERROR');
               else
-              	res.send(products);
+                res.send(productos);
               
-   	     });
+         });
+    };
 
-   findOneProduct = function(req,res){
-   	     	producto.findOne(req.params.nombre,function(err,productoFound){
-               
+   module.exports.findByName = function(req,res){
+          modelProducto.findOne({nombre: req.params.nombre},function(err,productoFound){       
                if(err)
-              	console.log('ERROR');
+                console.log('ERROR');
               else
-              	res.send(products);
+                res.send(productoFound);
            
-   	     	}); 	     
-   	     }
+          });        
+   };
    
-   app.get('./findAllProducts',findAllProducts);
-   app.get('./findOneProduct',findOneProduct);
+   
 
-}
 
 
 
